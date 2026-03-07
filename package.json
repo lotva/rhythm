@@ -1,13 +1,29 @@
 {
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.17.1"
-  }
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"check:styles": "stylelint \"src/**/*.{astro,css}\"",
+		"check:formatting": "prettier . --check"
+	},
+	"dependencies": {
+		"astro": "^5.17.1"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^20.4.3",
+		"@commitlint/config-conventional": "^20.4.3",
+		"@commitlint/types": "^20.4.3",
+		"lefthook": "^2.1.3",
+		"postcss-html": "^1.8.1",
+		"prettier": "^3.8.1",
+		"prettier-plugin-astro": "^0.14.1",
+		"stylelint": "^17.4.0",
+		"stylelint-config-astro": "^2.0.0",
+		"stylelint-config-clean-order": "^8.0.1",
+		"stylelint-config-recommended": "^18.0.0",
+		"stylelint-plugin-logical-css": "^2.0.2"
+	}
 }

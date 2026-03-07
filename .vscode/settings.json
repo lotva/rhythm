@@ -1,0 +1,14 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit",
+		"source.organizeImports": "explicit",
+		"source.fixAll.prettier": "never"
+	},
+
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+
+	"stylelint.validate": ["html", "astro", "css"],
+
+	"editor.tabSize": 2
+}
