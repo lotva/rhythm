@@ -11,7 +11,8 @@
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^4.3.13",
-		"astro": "^5.17.1"
+		"astro": "^5.17.1",
+		"linkedom": "^0.18.12"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.4.3",

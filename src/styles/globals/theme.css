@@ -91,7 +91,12 @@ code {
 	font-family: var(--typography__font-family--mono);
 }
 
-.capitals {
-	text-transform: uppercase;
+.caps {
 	letter-spacing: var(--typography__tracking--widest);
+}
+
+.small-caps {
+	font-feature-settings: 'smcp';
+	font-variant-caps: unicase;
+	letter-spacing: var(--typography__tracking--wide);
 }
