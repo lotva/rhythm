@@ -1,0 +1,97 @@
+html {
+	font-family: var(--typography__font-family--text);
+	font-weight: var(--typography__font-weight);
+	line-height: var(--typography__leading);
+	color: var(--color__foreground);
+
+	background-color: var(--color__background);
+}
+
+a {
+	color: var(--color__link);
+	text-decoration-color: var(--color__link-border);
+	text-decoration-line: var(--decoration__line);
+	text-decoration-thickness: var(--decoration__thickness);
+	text-underline-offset: var(--decoration__offset);
+
+	transition:
+		color var(--animation__duration) var(--animation__ease),
+		background-color var(--animation__duration) var(--animation__ease),
+		text-decoration-color var(--animation__duration) var(--animation__ease),
+		box-shadow var(--animation__duration--fast) var(--animation__ease-in-out),
+		text-decoration-thickness var(--animation__duration--fast)
+			var(--animation__ease-in-out);
+
+	&:hover,
+	&:focus-visible {
+		color: var(--color__link--hover);
+		text-decoration-color: var(--color__link-border--hover);
+		transition-property: box-shadow, text-decoration-thickness;
+	}
+
+	&:focus-visible {
+		--decoration__thickness: var(--typography__outline-thickness);
+
+		text-decoration-color: var(--color__link-border--focus);
+	}
+}
+
+strong {
+	--color__link: var(--color__foreground--strong);
+
+	font-weight: var(--typography__font-weight--bold);
+	color: var(--color__foreground--strong);
+}
+
+h2,
+h3 {
+	--color__link: var(--color__foreground--title);
+
+	font-weight: var(--typography__font-weight--bold);
+	color: var(--color__foreground--title);
+}
+
+h1,
+h2,
+h3,
+p,
+.has-compensator {
+	margin-inline-start: var(--typography__compensator);
+}
+
+button,
+select,
+input,
+textarea,
+pre {
+	outline-color: transparent;
+	outline-style: solid;
+	transition:
+		color var(--animation__duration) var(--animation__ease),
+		background-color var(--animation__duration) var(--animation__ease),
+		opacity var(--animation__duration) var(--animation__ease),
+		box-shadow var(--animation__duration--fast) var(--animation__ease-in-out);
+
+	&:hover {
+		transition-property: box-shadow;
+	}
+
+	&:focus-visible {
+		box-shadow: 0 0 0 var(--typography__outline-thickness) var(--color__outline);
+	}
+}
+
+hr {
+	block-size: 1px;
+	border: none;
+	background-color: var(--color__rule);
+}
+
+code {
+	font-family: var(--typography__font-family--mono);
+}
+
+.capitals {
+	text-transform: uppercase;
+	letter-spacing: var(--typography__tracking--widest);
+}

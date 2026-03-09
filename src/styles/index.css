@@ -1,0 +1,9 @@
+@import 'globals/box-sizing.css';
+@import 'globals/typography.css';
+@import 'globals/fonts.css';
+@import 'globals/scroll-behavior.css';
+@import 'globals/fluid-font-size.css';
+@import 'globals/selection.css';
+@import 'globals/theme.css';
+@import 'globals/tokens.css';
+@import 'globals/code.css';

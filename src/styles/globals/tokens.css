@@ -1,0 +1,88 @@
+:root {
+	--typography__tracking--tighter: -0.05em;
+	--typography__tracking--tight: -0.035em;
+	--typography__tracking: 0em;
+	--typography__tracking--wide: 0.02em;
+	--typography__tracking--widest: 0.1em;
+
+	--typography__leading--tight: 1.1;
+	--typography__leading: 1.4;
+
+	--typography__font-weight: 450;
+	--typography__font-weight--bold: 700;
+
+	--typography__space-width: 0.27em;
+
+	--typography__outline-thickness: 0.125rem;
+
+	--typography__compensator: -0.07em;
+	--typography__surface-capital-compensator: calc((1cap - 1ex) / 2);
+
+	--gap: calc(1rlh - 1rex);
+	--gap--relative: calc(1lh - 1ex);
+
+	--radius-sm: calc(var(--radius) - 0.125em);
+	--radius: 0.25em;
+	--radius-lg: calc(var(--radius) + 0.125em);
+
+	--font-size__caption: 0.84em;
+	--font-size__tagline: 1.41em;
+	--font-size__title: 4em;
+
+	--decoration__line: underline;
+	--decoration__thickness: 0.05em;
+	--decoration__offset: 0.35em;
+
+	--animation__duration: 300ms;
+	--animation__duration--fast: 150ms;
+	--animation__ease: ease;
+	--animation__ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--animation__ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+	--color__background: oklch(98.83% 0.008 75);
+	--color__surface: oklch(96.48% 0.008 75);
+
+	--color__foreground--muted: oklch(52.34% 0.008 75);
+	--color__foreground: oklch(30.27% 0.008 75);
+	--color__foreground--strong: var(--color__foreground);
+	--color__foreground--subtitle: var(--color__foreground--muted);
+	--color__foreground--title: var(--color__foreground);
+
+	--color__link: inherit;
+	--color__link--hover: var(--color__foreground);
+	--color__link-border: oklch(52.34% 0.008 75 / 0.5);
+	--color__link-border--hover: var(--color__foreground);
+	--color__link-border--focus: var(--color__foreground);
+
+	--color__outline: oklch(72.66% 0.008 75 / 0.5);
+	--color__selection: oklch(91.8% 0.008 75 / 0.5);
+	--color__rule: oklch(91.8% 0.008 75);
+
+	--color__disabled-state-opacity: 0.5;
+
+	color-scheme: light;
+
+	@media (prefers-color-scheme: dark) {
+		--typography__font-weight: 400;
+
+		--color__background: oklch(0.1934 0.008 75);
+		--color__surface: oklch(0.3027 0.008 75);
+
+		--color__foreground--muted: oklch(72.66% 0.008 75);
+		--color__foreground: oklch(91.8% 0.008 75);
+
+		--color__outline: oklch(61.33% 0.008 75 / 0.5);
+		--color__selection: oklch(41.21% 0.008 75 / 0.5);
+		--color__rule: oklch(30.27% 0.008 75);
+
+		--color__link-border: oklch(91.8% 0.008 75 / 0.5);
+
+		--color__disabled-state-opacity: 0.5;
+
+		color-scheme: dark;
+	}
+
+	@media (width >= 768px) {
+		--font-size__title: 4.75em;
+	}
+}

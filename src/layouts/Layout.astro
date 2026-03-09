@@ -1,3 +1,7 @@
+---
+import '../styles/index.css'
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,6 +10,7 @@
 			name="viewport"
 			content="width=device-width"
 		/>
+
 		<link
 			rel="icon"
 			type="image/svg+xml"
@@ -15,22 +20,34 @@
 			rel="icon"
 			href="/favicon.ico"
 		/>
+
 		<meta
 			name="generator"
 			content={Astro.generator}
 		/>
-		<title>Astro Basics</title>
+
+		<title>Rhythm</title>
 	</head>
+
 	<body>
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
 
 <style>
-	html,
+	html {
+		cursor: default;
+	}
+
 	body {
-		inline-size: 100%;
-		block-size: 100%;
-		margin: 0;
+		position: relative;
+		max-inline-size: 64ch;
+		margin: 0 auto;
+	}
+
+	main {
+		padding: gap(10) gap();
 	}
 </style>

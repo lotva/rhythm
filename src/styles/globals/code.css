@@ -1,0 +1,47 @@
+pre {
+	scrollbar-color: var(--color__outline) transparent;
+	scrollbar-width: thin;
+
+	overflow-block: hidden;
+	overflow-inline: auto;
+
+	padding: gap() gap(0.5) gap(1.5);
+	border-radius: var(--radius);
+
+	font-size: 0.84em;
+	line-height: 1.5em;
+
+	background-color: var(--color__surface) !important;
+
+	&:focus-visible {
+		outline: var(--typography__outline-width) solid rgb(var(--color__link));
+	}
+}
+
+code {
+	user-select: all;
+
+	font-weight: 450;
+	letter-spacing: -0.01em;
+	overflow-wrap: anywhere;
+	tab-size: 2;
+	white-space: inherit;
+
+	@media (prefers-color-scheme: dark) {
+		font-weight: 400;
+	}
+}
+
+/* https://docs.astro.build/en/guides/syntax-highlighting/ */
+
+.astro-code,
+.astro-code span {
+	background-color: var(--color__surface) !important;
+
+	@media (prefers-color-scheme: dark) {
+		font-weight: var(--shiki-dark-font-weight) !important;
+		font-style: var(--shiki-dark-font-style) !important;
+		color: var(--shiki-dark) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
+	}
+}

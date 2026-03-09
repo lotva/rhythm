@@ -1,0 +1,42 @@
+<div
+	class:list={['content', Astro.props.class]}
+	{...Astro.props}
+>
+	<slot />
+</div>
+
+<style>
+	.content {
+		hyphens: auto;
+
+		h2 {
+			margin-block-start: gap(2);
+			font: inherit;
+			font-weight: bold;
+		}
+
+		p {
+			margin-block-start: gap(2);
+
+			h2 + & {
+				margin-block-start: gap(1);
+			}
+		}
+
+		pre {
+			margin-block-start: gap(2);
+
+			h2 + & {
+				margin-block-start: gap(1);
+			}
+
+			p + & {
+				margin-block-start: gap(1.25);
+			}
+
+			& + & {
+				margin-block-start: gap(0.5);
+			}
+		}
+	}
+</style>
