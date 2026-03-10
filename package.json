@@ -12,7 +12,10 @@
 	"dependencies": {
 		"@astrojs/mdx": "^4.3.13",
 		"astro": "^5.17.1",
-		"linkedom": "^0.18.12"
+		"astro-typograf": "^3.2.1",
+		"linkedom": "^0.18.12",
+		"unified": "^10.1.2",
+		"unist-util-visit": "^4.1.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.4.3",
