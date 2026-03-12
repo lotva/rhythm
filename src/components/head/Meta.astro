@@ -1,0 +1,148 @@
+---
+import { i18n } from 'astro:config/client'
+import {
+	getAbsoluteLocaleUrlList,
+	getPathByLocale,
+	normalizeTheLocale,
+	pathHasLocale,
+	toCodes,
+} from 'astro:i18n'
+
+const { frontmatter } = Astro.props
+
+const base = process.env.BASE_URL || ''
+
+const locale = Astro.currentLocale!
+
+let pathname = Astro.url.pathname
+const canonical = Astro.url.href
+
+if (pathHasLocale(pathname)) {
+	const localePath = getPathByLocale(locale)
+	pathname = pathname.replace(`/${localePath}`, '') || '/'
+}
+
+const alternateUrls = getAbsoluteLocaleUrlList(pathname)
+const localeCodes = toCodes(i18n?.locales!)
+
+const title = frontmatter.title
+const description = frontmatter.description || frontmatter.tagline
+
+const previewImageSrc = `${base}/open-graph.png`
+---
+
+<meta
+	name="description"
+	content={frontmatter.description || frontmatter.tagline}
+/>
+
+<link
+	rel="canonical"
+	href={canonical}
+/>
+
+{
+	alternateUrls.map((url, i) => (
+		<link
+			rel="alternate"
+			hreflang={normalizeTheLocale(localeCodes[i])}
+			href={url}
+		/>
+	))
+}
+
+<link
+	rel="alternate"
+	hreflang="x-default"
+	href={alternateUrls[0]}
+/>
+
+<meta
+	property="og:type"
+	content="website"
+/>
+<meta
+	property="og:title"
+	content={title}
+/>
+<meta
+	property="og:description"
+	content={description}
+/>
+<meta
+	property="og:url"
+	content={canonical}
+/>
+<meta
+	property="og:site_name"
+	content={title}
+/>
+
+<meta
+	property="og:image"
+	content={previewImageSrc}
+/>
+<meta
+	property="og:image:alt"
+	content={title}
+/>
+<meta
+	property="og:image:type"
+	content="image/png"
+/>
+<meta
+	property="og:image:width"
+	content="1200"
+/>
+<meta
+	property="og:image:height"
+	content="630"
+/>
+
+<meta
+	property="og:locale"
+	content={normalizeTheLocale(locale)}
+/>
+
+{
+	localeCodes
+		.filter((l) => l !== locale)
+		.map((l) => (
+			<meta
+				property="og:locale:alternate"
+				content={normalizeTheLocale(l)}
+			/>
+		))
+}
+
+<meta
+	name="twitter:card"
+	content="summary_large_image"
+/>
+<meta
+	name="twitter:title"
+	content={title}
+/>
+<meta
+	name="twitter:description"
+	content={description}
+/>
+<meta
+	name="twitter:image"
+	content={previewImageSrc}
+/>
+
+<meta
+	name="color-scheme"
+	content="dark light"
+/>
+<meta
+	name="theme-color"
+	content="#171411"
+	media="(prefers-color-scheme: dark)"
+/>
+<meta
+	name="theme-color"
+	content="#fefbf5"
+	media="(prefers-color-scheme: light)"
+/>

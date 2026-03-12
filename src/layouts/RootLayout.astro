@@ -1,0 +1,51 @@
+---
+import Icons from '@/components/head/Icons.astro'
+import Meta from '@/components/head/Meta.astro'
+import LocaleSwitcher from '@/components/LocaleSwitcher.astro'
+import '../styles/index.css'
+
+const { frontmatter } = Astro.props
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale}>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width"
+		/>
+
+		<title>{frontmatter.title}</title>
+
+		<Meta frontmatter={frontmatter} />
+		<Icons />
+
+		<meta
+			name="generator"
+			content={Astro.generator}
+		/>
+	</head>
+
+	<body>
+		<main>
+			<slot />
+		</main>
+
+		<footer class="mbs-2g">
+			<LocaleSwitcher class="mx-auto mbs-1g" />
+		</footer>
+	</body>
+</html>
+
+<style>
+	html {
+		cursor: default;
+	}
+
+	body {
+		position: relative;
+		margin: 0 auto;
+		padding: gap(10) gap();
+	}
+</style>

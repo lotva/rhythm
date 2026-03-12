@@ -9,8 +9,12 @@
 	.content {
 		hyphens: auto;
 
+		:where(& > *) {
+			grid-column: 2;
+		}
+
 		h2 {
-			margin-block-start: gap(2);
+			margin-block-start: gap(3);
 			font: inherit;
 			font-weight: bold;
 		}
@@ -20,6 +24,14 @@
 
 			h2 + & {
 				margin-block-start: gap(1);
+			}
+		}
+
+		ul {
+			padding-inline-start: gap();
+
+			li {
+				margin-block-start: gap(1.5);
 			}
 		}
 
@@ -36,6 +48,24 @@
 
 			& + & {
 				margin-block-start: gap(0.5);
+			}
+		}
+
+		aside {
+			margin-block-start: gap(2);
+			font-size: var(--font-size__caption);
+			color: var(--color__foreground--muted);
+
+			pre + & {
+				margin-block-start: gap();
+			}
+
+			p:first-child {
+				margin-block-start: 0;
+			}
+
+			p:not(:first-child) {
+				margin-block-start: gap();
 			}
 		}
 	}

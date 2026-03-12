@@ -1,0 +1,42 @@
+---
+import Intro from '@/components/Intro.astro'
+import MarkdownContent from '@/components/MarkdownContent.astro'
+import RootLayout from './RootLayout.astro'
+
+const { frontmatter } = Astro.props
+---
+
+<RootLayout frontmatter={frontmatter}>
+	<div class="layout">
+		<Intro
+			title={frontmatter.title}
+			tagline={frontmatter.tagline}
+		/>
+
+		<MarkdownContent class="content">
+			<slot />
+		</MarkdownContent>
+	</div>
+</RootLayout>
+
+<style>
+	.layout {
+		display: grid;
+		grid-template-columns: 1fr min(calc(33em - gap(2)), 100%) 1fr;
+
+		@media (width >= 768px) {
+			column-gap: gap();
+		}
+
+		:where(& > *) {
+			grid-column: 2;
+		}
+	}
+
+	.content {
+		display: grid;
+		grid-column: -1 / 1;
+		grid-template-columns: subgrid;
+		margin-block-start: gap(4);
+	}
+</style>

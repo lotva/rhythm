@@ -1,6 +1,15 @@
+---
+interface Props {
+	title: string
+	tagline: string
+}
+
+const { title, tagline } = Astro.props
+---
+
 <hgroup class="hgroup">
-	<h1 class="title">Rhythm</h1>
-	<p class="tagline">A leading-based spacing system.</p>
+	<h1 class="title">{title}</h1>
+	<p class="tagline">{tagline}</p>
 </hgroup>
 
 <style>

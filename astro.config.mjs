@@ -20,6 +20,13 @@ export default defineConfig({
 			: null,
 	],
 
+	i18n: {
+		locales: ['en', 'ru'],
+		defaultLocale: 'en',
+	},
+
+	site: process.env.BASE_URL || undefined,
+
 	markdown: {
 		shikiConfig: {
 			themes: {

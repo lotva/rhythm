@@ -1,0 +1,67 @@
+---
+import { i18n } from 'astro:config/client'
+import { getRelativeLocaleUrl, toPaths } from 'astro:i18n'
+
+const currentLocale = Astro.currentLocale
+const paths = toPaths(i18n?.locales!)
+---
+
+<section
+	class:list={['switcher', Astro.props.class]}
+	aria-label="Switch locale"
+	{...Astro.props}
+>
+	{
+		paths.map((locale) => {
+			const isCurrent = currentLocale === locale
+			const Component = isCurrent ? 'span' : 'a'
+
+			return (
+				<Component
+					class="link"
+					href={isCurrent ? undefined : getRelativeLocaleUrl(locale)}
+					aria-current={isCurrent ? 'page' : undefined}
+				>
+					{locale?.toUpperCase()}
+				</Component>
+			)
+		})
+	}
+</section>
+
+<style>
+	.switcher {
+		display: flex;
+
+		inline-size: fit-content;
+		padding: var(--typography__outline-thickness);
+		border-radius: var(--radius);
+
+		font-size: var(--font-size__caption);
+
+		background-color: var(--color__surface);
+	}
+
+	.link {
+		padding: calc(
+				gapRelative(0.6) + var(--typography__surface-capital-compensator)
+			)
+			gap(0.25) gapRelative(0.6);
+		border-radius: calc(var(--radius) - var(--typography__outline-thickness));
+		color: var(--color__foreground--muted);
+		text-decoration: none;
+
+		.caps {
+			letter-spacing: 0.04em;
+		}
+
+		&[aria-current] {
+			color: var(--color__foreground);
+			background-color: var(--color__background);
+		}
+
+		&:not([aria-current]):hover {
+			color: var(--color__foreground);
+		}
+	}
+</style>
