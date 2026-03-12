@@ -15,23 +15,40 @@ export default defineConfig({
 
 	rules: [
 		[
-			/^(p|m|w|h|gap)(t|r|b|l|x|y|s|e|bs|be)?-([\d.]+)g(r)?$/,
+			/^([pmwh]|gap|inset|top|right|bottom|left)(?:-?([trblxyse]|bs|be))?-([\d.]+)g(r)?$/,
 			(match) => {
-				const [, property, directive, n, relative] = match
+				const [, property, directive, multiplier, isRelative] = match
 
-				const gapProperty = relative ? '--gap--relative' : '--gap'
-				const value = `calc(var(${gapProperty}) * ${n})`
+				const gapVariableName = isRelative ? '--gap--relative' : '--gap'
+				const value = `calc(var(${gapVariableName}) * ${multiplier})`
 
-				const baseMap = {
+				const basePropertyMap: Record<string, string> = {
 					p: 'padding',
 					m: 'margin',
 					w: 'width',
 					h: 'height',
 					gap: 'gap',
-				} as const
+					inset: 'inset',
+					top: 'top',
+					right: 'right',
+					bottom: 'bottom',
+					left: 'left',
+				}
 
-				const base = baseMap[property as keyof typeof baseMap]
+				const base = basePropertyMap[property]
 				if (!base) return
+
+				if (property === 'gap') {
+					if (directive === 'x') return { 'column-gap': value }
+					if (directive === 'y') return { 'row-gap': value }
+					if (!directive) return { gap: value }
+					return
+				}
+
+				const coordinates = ['top', 'right', 'bottom', 'left']
+				if (coordinates.includes(property)) {
+					return { [base]: value }
+				}
 
 				const directiveMap: Record<string, string[]> = {
 					'': [base],
@@ -39,18 +56,12 @@ export default defineConfig({
 					r: [`${base}-right`],
 					b: [`${base}-bottom`],
 					l: [`${base}-left`],
-					x:
-						property === 'gap'
-							? [base]
-							: [`${base}-inline-start`, `${base}-inline-end`],
-					y:
-						property === 'gap'
-							? [base]
-							: [`${base}-block-start`, `${base}-block-end`],
 					s: [`${base}-inline-start`],
 					e: [`${base}-inline-end`],
 					bs: [`${base}-block-start`],
 					be: [`${base}-block-end`],
+					x: [`${base}-inline-start`, `${base}-inline-end`],
+					y: [`${base}-block-start`, `${base}-block-end`],
 				}
 
 				const properties = directiveMap[directive ?? '']

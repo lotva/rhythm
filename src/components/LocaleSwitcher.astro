@@ -40,6 +40,12 @@ const paths = toPaths(i18n?.locales!)
 		font-size: var(--font-size__caption);
 
 		background-color: var(--color__surface);
+
+		@supports (corner-shape: squircle) {
+			border-radius: calc(var(--radius) * 1.85);
+
+			corner-shape: squircle;
+		}
 	}
 
 	.link {
