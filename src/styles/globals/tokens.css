@@ -39,24 +39,24 @@
 	--animation__ease-out: cubic-bezier(0, 0, 0.2, 1);
 	--animation__ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-	--color__background: oklch(98.83% 0.008 75);
-	--color__surface: oklch(96.48% 0.008 75);
+	--color__background: oklch(98.83% 0.003 75);
+	--color__surface: oklch(96.48% 0.003 75);
 
-	--color__foreground--muted: oklch(52.34% 0.008 75);
-	--color__foreground: oklch(30.27% 0.008 75);
+	--color__foreground--muted: oklch(52.34% 0.003 75);
+	--color__foreground: oklch(30.27% 0.003 75);
 	--color__foreground--strong: var(--color__foreground);
 	--color__foreground--subtitle: var(--color__foreground--muted);
 	--color__foreground--title: var(--color__foreground);
 
 	--color__link: inherit;
 	--color__link--hover: var(--color__foreground);
-	--color__link-border: oklch(52.34% 0.008 75 / 0.5);
+	--color__link-border: oklch(52.34% 0.003 75 / 0.5);
 	--color__link-border--hover: var(--color__foreground);
 	--color__link-border--focus: var(--color__foreground);
 
-	--color__outline: oklch(72.66% 0.008 75 / 0.5);
-	--color__selection: oklch(91.8% 0.008 75 / 0.5);
-	--color__rule: oklch(91.8% 0.008 75);
+	--color__outline: oklch(72.66% 0.003 75 / 0.5);
+	--color__selection: oklch(91.8% 0.003 75 / 0.5);
+	--color__rule: oklch(91.8% 0.003 75);
 
 	--color__disabled-state-opacity: 0.5;
 
@@ -65,17 +65,17 @@
 	@media (prefers-color-scheme: dark) {
 		--typography__font-weight: 400;
 
-		--color__background: oklch(0.1934 0.008 75);
-		--color__surface: oklch(0.3027 0.008 75);
+		--color__background: oklch(0.1934 0.003 75);
+		--color__surface: oklch(0.3027 0.003 75);
 
-		--color__foreground--muted: oklch(72.66% 0.008 75);
-		--color__foreground: oklch(91.8% 0.008 75);
+		--color__foreground--muted: oklch(72.66% 0.003 75);
+		--color__foreground: oklch(91.8% 0.003 75);
 
-		--color__outline: oklch(61.33% 0.008 75 / 0.5);
-		--color__selection: oklch(41.21% 0.008 75 / 0.5);
-		--color__rule: oklch(30.27% 0.008 75);
+		--color__outline: oklch(61.33% 0.003 75 / 0.5);
+		--color__selection: oklch(41.21% 0.003 75 / 0.5);
+		--color__rule: oklch(30.27% 0.003 75);
 
-		--color__link-border: oklch(91.8% 0.008 75 / 0.5);
+		--color__link-border: oklch(91.8% 0.003 75 / 0.5);
 
 		--color__disabled-state-opacity: 0.5;
 
