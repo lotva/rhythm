@@ -20,6 +20,12 @@ export default defineConfig({
 			: null,
 	],
 
+	vite: {
+		build: {
+			assetsInlineLimit: 16384,
+		},
+	},
+
 	i18n: {
 		locales: ['en', 'ru'],
 		defaultLocale: 'en',
