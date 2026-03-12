@@ -1,4 +1,5 @@
 ---
+import Copy from '@/components/Copy.astro'
 import Icons from '@/components/head/Icons.astro'
 import Meta from '@/components/head/Meta.astro'
 import LocaleSwitcher from '@/components/LocaleSwitcher.astro'
@@ -41,6 +42,7 @@ const { frontmatter } = Astro.props
 		</main>
 
 		<footer class="mbs-2g">
+			<Copy />
 			<LocaleSwitcher class="mx-auto mbs-1g" />
 		</footer>
 	</body>

@@ -1,0 +1,34 @@
+---
+const locale = (Astro.currentLocale || 'en') as 'en' | 'ru'
+
+const translations = {
+	en: {
+		link: 'Written by Denis Nalitov',
+		audience: 'for UI engineers passionate about typography',
+	},
+
+	ru: {
+		link: 'Написал Денис Налитов',
+		audience: 'для разработчиков интерфейсов, которые любят типографику',
+	},
+}
+---
+
+<aside
+	class:list={['copy', Astro.props.class]}
+	{...Astro.props}
+>
+	<a href="https://github.com/lotva/rhythm">{translations[locale].link}</a>
+	{translations[locale].audience}
+</aside>
+
+<style>
+	.copy {
+		max-inline-size: 45ch;
+		margin-inline: auto;
+
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+		text-align: center;
+	}
+</style>
