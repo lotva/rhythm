@@ -33,6 +33,15 @@ export default defineConfig({
 
 	site: process.env.BASE_URL || undefined,
 
+	prefetch: {
+		prefetchAll: true,
+		defaultStrategy: 'viewport',
+	},
+
+	experimental: {
+		clientPrerender: true,
+	},
+
 	markdown: {
 		shikiConfig: {
 			themes: {
