@@ -1,4 +1,294 @@
 ---
 title: 'Ритм'
-tagline: 'Система отступов, основанная на интерлиньяже.'
+tagline: 'Система отступов, основанная на типографике.'
 ---
+
+import TableOfContents from '@/components/TableOfContents.astro'
+
+<hr />
+
+За базовый шаг системы «Ритм» взят межстрочный просвет — визуальное расстояние между строками абзаца.
+
+<h2 data-toc-ignore>TLDR</h2>
+
+```css
+* {
+	text-box: trim-both ex alphabetic;
+}
+
+:root {
+	/* Высота строки минус высота строчной буквы */
+	--gap: calc(1rlh - 1rex);
+	--gap--relative: calc(1lh - 1ex);
+}
+
+p {
+	margin-block-start: calc(var(--gap) * 2);
+}
+
+small + h1 {
+	margin-block-start: var(--gap--relative);
+}
+```
+
+<aside>
+	Chrome 133+, браузерная поддержка ≥ 81%.
+	[Can I Use](https://caniuse.com/mdn-css_properties_text-box)
+</aside>
+
+<TableOfContents headings={getHeadings()} />
+
+Межстрочный просвет высчитывается как расстояние между базовыми линиями минус высота строчной буквы. Это значение — часть шрифтовых метрик, поэтому «Ритм» автоматически адаптируется к шрифту и применим к большинству проектов без дополнительной настройки. Единственная задача дизайнера — подобрать интерлиньяж.
+
+Преимущества:
+
+**Простая ментальная модель.** Минимально допустимое расстояние от элемента — `gap`, расстояние между его строками.
+
+**Адаптивность.** Отступы масштабируются вместе с кеглем и высотой строки. Это упрощает работу с флюидной типографикой.
+
+**Согласованность со шрифтом.** При смене шрифта отступы пересчитываются согласно его метрикам.
+
+## Как внедрить в проект
+
+1\. Ограничьте высоту контейнера с текстом до высоты строчной буквы. Это нужно, чтобы правильно считать просвет от границ блочных HTML-элементов:
+
+```css
+* {
+	text-box: trim-both ex alphabetic;
+}
+```
+
+2\. Определите базовый отступ, равный межстрочному просвету:
+
+```css
+:root {
+	--gap: calc(1rlh - 1rex);
+}
+```
+
+3\. Определите тот же отступ в относительных единицах для использования с увеличенными кеглями:
+
+```css
+:root {
+	--gap--relative: calc(1lh - 1ex);
+}
+```
+
+4\. Задайте шкалу согласно потребностям проекта:
+
+```sass
+calc(var(--gap) * 0.5);
+calc(var(--gap) * 0.75);
+calc(var(--gap) * 1.5);
+calc(var(--gap) * 2);
+calc(var(--gap) * 3);
+calc(var(--gap) * 4);
+```
+
+## Мотивация
+
+<span class="small-caps">Модуль</span> — базовая единица измерения, которой
+кратны размеры дизайн-системы. Модуль упрощает выбор размеров, делает решения
+объяснимыми и ускоряет перенос дизайна в код. Обычно он равен 8 пикселям.
+
+<aside>
+	[Модуль](https://guides.kontur.ru/principles/base/grid/). Контур-гайды
+</aside>
+
+В большинстве дизайн-систем модуль общий для всех измерений: для кегля, ширины и высоты, скруглений и отступов. На практике отступы — отдельная сущность, которая в наименьшей степени продиктована модулем и в большей степени подчиняется <span class="small-caps">метрикам</span> шрифта.
+
+Метрики — это относительные дробные измерения, уникальные для каждого шрифта и лежащие в его основе. Они включают, например, высоту верхних (ascender) и нижних (descender) выносных элементов. Это значит, что к значениям отступов в CSS шрифт добавляет собственные расстояния, некратные восьмипиксельной сетке.
+
+Кроме того, просветы между строками подчиняются интерлиньяжу — расстоянию между базовыми линиями строк текста, которое задаёт дизайнер. В сумме метрики и интерлиньяж приводят к тому, что связь между фиксированным модулем и реальными расстояниями в тексте — фиктивна.
+
+Вот почему отступы в «Ритме» имеют собственный модуль, вычисляемый относительно метрик:
+
+```css
+:root {
+	/* Межстрочный просвет выражен в метриках как */
+	/* интерлиньяж минус высота строчной буквы: */
+	/* ascent + descent + lineGap − xHeight */
+
+	--gap: calc(1rlh - 1rex);
+}
+```
+
+Межстрочный просвет выбран в качестве модуля неслучайно. Это привычный и удобный примитив, на который чаще всего опирается дизайнер при выборе отступов.
+
+В ходе вёрстки мы пользуемся правилом, сформулированным в бюро Горбунова: «внутреннее ≤ внешнее». Внутренние расстояния типографического объекта не должны превышать внешние, иначе объекты вторгаются в личное пространство друг друга и слипаются.
+
+<aside>
+	См. советы Артёма Горбунова: [о «правиле внутреннего и
+	внешнего»](https://bureau.ru/soviet/20140818/), [о вертикальных
+	отступах](https://bureau.ru/bb/soviet/20140224/), [об интерлиньяже и его
+	влиянии на отступы](https://bureau.ru/soviet/20140310/)
+</aside>
+
+Например:
+
+- отступ от бирки до заголовка должен быть не меньше просвета между строками заголовка;
+- отступ от иллюстрации до абзаца должен быть не меньше просвета между строками абзаца.
+
+«Ритм» стандартизирует этот подход, взяв межстрочный просвет за базовый шаг системы. Это помогает решить типовые задачи в вёрстке и предотвратить ошибки, такие как влезание в интерлиньяж.
+
+<aside>
+	См. [Влезание в интерлиньяж](https://bureau.ru/soviet/20191002/). Михаил Нозик
+</aside>
+
+## Браузерная поддержка
+
+Подход опирается на возможности современного CSS: `text-box`, `rlh`, `rex` и `lh`. Браузерная поддержка — ≥ 81%.
+
+Чтобы расширить совместимость, сгенерируйте полифилл для `text-box` с помощью [инструмента «Икс-сайз»](https://lotva.ru/projects/xsize/).
+
+## Работа с PostCSS
+
+```js
+// postcss.config.cjs
+
+const { gap, gapRelative } = require('./src/functions')
+
+module.exports = {
+	plugins: [
+		require('postcss-functions')({
+			functions: {
+				gap,
+				gapRelative,
+			},
+		}),
+	],
+}
+```
+
+{/* prettier-ignore */}
+```js
+// functions.js
+
+export const gap = (value = 1) =>
+	`calc(var(--gap) * ${value})`
+
+export const gapRelative = (value = 1) =>
+	`calc(var(--gap--relative) * ${value})`
+```
+
+```css
+/* Использование: */
+
+pre {
+	padding: gap() gap(0.5) gap(2);
+}
+```
+
+## Работа с Tailwind
+
+```scss
+/* globals.tailwind.css */
+
+@theme {
+	--spacing: var(--gap);
+
+	/* Или: */
+	--spacing-0.5g: calc(var(--gap) * 0.5);
+	--spacing-0.75g: calc(var(--gap) * 0.75);
+	--spacing-1g: var(--gap);
+	--spacing-1.5g: calc(var(--gap) * 1.5);
+	--spacing-2g: calc(var(--gap) * 2);
+	--spacing-3g: calc(var(--gap) * 3);
+	--spacing-4g: calc(var(--gap) * 4);
+	--spacing-1gr: var(--gap--relative);
+}
+```
+
+## Работа с UnoCSS
+
+```ts
+// uno.config.ts
+
+// Скопируйте кастомное правило:
+
+export default defineConfig({
+	rules: [
+		[
+			/^([pmwh]|gap|inset|top|right|bottom|left)(?:-?([trblxyse]|bs|be))?-([\d.]+)g(r)?$/,
+			(match) => {
+				const [, property, directive, multiplier, isRelative] = match
+
+				const gapVariableName = isRelative ? '--gap--relative' : '--gap'
+				const value = `calc(var(${gapVariableName}) * ${multiplier})`
+
+				const basePropertyMap: Record<string, string> = {
+					p: 'padding',
+					m: 'margin',
+					w: 'width',
+					h: 'height',
+					gap: 'gap',
+					inset: 'inset',
+					top: 'top',
+					right: 'right',
+					bottom: 'bottom',
+					left: 'left',
+				}
+
+				const base = basePropertyMap[property]
+				if (!base) return
+
+				if (property === 'gap') {
+					if (directive === 'x') return { 'column-gap': value }
+					if (directive === 'y') return { 'row-gap': value }
+					if (!directive) return { gap: value }
+					return
+				}
+
+				const coordinates = ['top', 'right', 'bottom', 'left']
+				if (coordinates.includes(property)) {
+					return { [base]: value }
+				}
+
+				const directiveMap: Record<string, string[]> = {
+					'': [base],
+					t: [`${base}-top`],
+					r: [`${base}-right`],
+					b: [`${base}-bottom`],
+					l: [`${base}-left`],
+					s: [`${base}-inline-start`],
+					e: [`${base}-inline-end`],
+					bs: [`${base}-block-start`],
+					be: [`${base}-block-end`],
+					x: [`${base}-inline-start`, `${base}-inline-end`],
+					y: [`${base}-block-start`, `${base}-block-end`],
+				}
+
+				const properties = directiveMap[directive ?? '']
+				if (!properties) return
+
+				return Object.fromEntries(properties.map((p) => [p, value]))
+			},
+		],
+	],
+})
+```
+
+```ts
+// Или задайте определённый набор значений:
+
+export default defineConfig({
+	theme: {
+		spacing: {
+			'0.5g': 'calc(var(--gap) * 0.5)',
+			'0.75g': 'calc(var(--gap) * 0.75)',
+			'1g': 'var(--gap)',
+			'1.5g': 'calc(var(--gap) * 1.5)',
+			'2g': 'calc(var(--gap) * 2)',
+			'3g': 'calc(var(--gap) * 3)',
+			'4g': 'calc(var(--gap) * 4)',
+			'1gr': 'var(--gap--relative)',
+		},
+	},
+})
+```
+
+```html
+<!-- Использование: -->
+
+<pre class="p-1g -m-0.5g mt-0.5g mbs-2gr gap-1g"></pre>
+```

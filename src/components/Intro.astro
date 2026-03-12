@@ -24,7 +24,10 @@ const { title, tagline } = Astro.props
 	}
 
 	.tagline {
+		max-inline-size: 90%;
 		margin-block-start: gapRelative(2.75);
+		margin-inline: auto;
+
 		font-size: var(--font-size__tagline);
 		line-height: var(--typography__leading--tight);
 	}
