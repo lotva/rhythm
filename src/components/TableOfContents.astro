@@ -1,0 +1,153 @@
+---
+import type { MarkdownHeading } from 'astro'
+
+interface Props {
+	headings: MarkdownHeading[]
+	class?: string
+}
+
+interface HeadingWithSubheadings extends MarkdownHeading {
+	subheadings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+
+const grouppedHeadings = headings.reduce((array, heading) => {
+	if (heading.depth === 2) {
+		array.push({ ...heading, subheadings: [] })
+	} else if (heading.depth === 3) {
+		array.at(-1)?.subheadings.push(heading)
+	}
+
+	return array
+}, [] as HeadingWithSubheadings[])
+---
+
+<nav
+	class="toc"
+	aria-label="Table of contents"
+>
+	<ol class="list">
+		{
+			grouppedHeadings.map((heading) => (
+				<li>
+					<a
+						class="toc-link"
+						href={`#${heading.slug}`}
+					>
+						{heading.text}
+					</a>
+					{heading.subheadings.length > 0 && (
+						<ol>
+							{heading.subheadings.map((subheading) => (
+								<li>
+									<a
+										class="toc-link"
+										href={`#${subheading.slug}`}
+									>
+										{subheading.text}
+									</a>
+								</li>
+							))}
+						</ol>
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) {
+					visibleHeadings.add(entry.target)
+				} else {
+					visibleHeadings.delete(entry.target)
+				}
+			}
+
+			let bestHeading: Element | null = null
+			let bestDistance = Infinity
+
+			for (const heading of visibleHeadings) {
+				const rect = heading.getBoundingClientRect()
+				const distance = Math.abs(rect.top)
+				if (distance < bestDistance) {
+					bestDistance = distance
+					bestHeading = heading
+				}
+			}
+
+			if (bestHeading) {
+				document
+					.querySelectorAll('.toc-link._active')
+					.forEach((el) => el.classList.remove('_active'))
+
+				const tocItem = document.querySelector(`a[href="#${bestHeading.id}"]`)
+				tocItem?.classList.add('_active')
+			}
+		},
+		{ root: null, rootMargin: '0px', threshold: [1] },
+	)
+
+	const visibleHeadings = new Set<Element>()
+
+	const sectionHeadings = document.querySelectorAll(
+		'.content > h2:not([data-toc-ignore]), .content > h3:not([data-toc-ignore])',
+	)
+
+	sectionHeadings.forEach((heading) => observer.observe(heading))
+</script>
+
+<style>
+	.toc {
+		position: sticky;
+		inset-block-start: 0;
+
+		margin: gap() gap(-1) gap(-1.5);
+		padding: gap() gap() gap(1.5);
+
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+
+		background-image: linear-gradient(
+			to bottom,
+			var(--color__background) calc(100% - 1.15em),
+			transparent
+		);
+
+		@media (width >= 1240px) {
+			position: fixed;
+			inset-block-start: gap(2);
+			block-size: 0;
+			margin-block-start: 0;
+		}
+	}
+
+	.list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: gap() gap(0.5);
+
+		@media (width >= 1240px) {
+			flex-direction: column;
+		}
+	}
+
+	.toc-link {
+		position: relative;
+		text-decoration-style: dashed;
+
+		@media (width >= 1240px) {
+			text-decoration-style: dotted;
+
+			&._active::before {
+				content: '·';
+				position: absolute;
+				inset-inline-start: -1ch;
+			}
+		}
+	}
+</style>

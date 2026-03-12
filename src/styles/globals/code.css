@@ -13,6 +13,12 @@ pre {
 
 	background-color: var(--color__surface) !important;
 
+	@supports (corner-shape: squircle) {
+		border-radius: calc(var(--radius) * 1.85);
+
+		corner-shape: squircle;
+	}
+
 	&:focus-visible {
 		outline: var(--typography__outline-width) solid rgb(var(--color__link));
 	}
