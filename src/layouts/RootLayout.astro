@@ -18,6 +18,14 @@ const { frontmatter } = Astro.props
 
 		<title>{frontmatter.title}</title>
 
+		<link
+			rel="preload"
+			href="/fonts/source-serif-4.woff2"
+			crossorigin=""
+			as="font"
+			type="font/woff2"
+		/>
+
 		<Meta frontmatter={frontmatter} />
 		<Icons />
 
