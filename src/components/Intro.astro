@@ -13,19 +13,12 @@ const { title, tagline } = Astro.props
 </hgroup>
 
 <style>
-	.hgroup {
-		text-align: center;
-	}
-
 	.title {
-		font-size: var(--font-size__title);
-		font-weight: normal;
-		letter-spacing: -0.03em;
+		font-size: inherit;
 	}
 
 	.tagline {
-		margin-block-start: gapRelative(2.75);
-		font-size: var(--font-size__tagline);
-		line-height: var(--typography__leading--tight);
+		max-inline-size: 90%;
+		margin-block-start: gap();
 	}
 </style>
