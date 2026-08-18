@@ -1,0 +1,16 @@
+*,
+::before,
+::after,
+.text-box-trim {
+	text-box: trim-both ex alphabetic;
+}
+
+a,
+u {
+	text-box: auto;
+}
+
+:root {
+	--gap: calc(1rlh - 1rex);
+	--gap--relative: calc(1lh - 1ex);
+}

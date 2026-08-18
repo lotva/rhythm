@@ -30,7 +30,7 @@ const grouppedHeadings = headings.reduce((array, heading) => {
 	<ol class="list">
 		{
 			grouppedHeadings.map((heading) => (
-				<li>
+				<li class="item">
 					<a
 						class="toc-link"
 						href={`#${heading.slug}`}
@@ -40,7 +40,7 @@ const grouppedHeadings = headings.reduce((array, heading) => {
 					{heading.subheadings.length > 0 && (
 						<ol>
 							{heading.subheadings.map((subheading) => (
-								<li>
+								<li class="item">
 									<a
 										class="toc-link"
 										href={`#${subheading.slug}`}
@@ -136,8 +136,11 @@ const grouppedHeadings = headings.reduce((array, heading) => {
 		}
 	}
 
-	.toc-link {
+	.item {
 		position: relative;
+	}
+
+	.toc-link {
 		text-decoration-style: dashed;
 
 		@media (width >= 1240px) {
@@ -146,6 +149,7 @@ const grouppedHeadings = headings.reduce((array, heading) => {
 			&._active::before {
 				content: '·';
 				position: absolute;
+				inset-block-start: 0;
 				inset-inline-start: -1ch;
 			}
 		}

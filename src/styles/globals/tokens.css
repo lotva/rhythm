@@ -8,7 +8,7 @@
 	--typography__leading--tight: 1.1;
 	--typography__leading: 1.4;
 
-	--typography__font-weight: 450;
+	--typography__font-weight: 400;
 	--typography__font-weight--bold: 700;
 
 	--typography__space-width: 0.27em;
@@ -17,9 +17,6 @@
 
 	--typography__compensator: -0.07em;
 	--typography__surface-capital-compensator: calc((1cap - 1ex) / 2);
-
-	--gap: calc(1rlh - 1rex);
-	--gap--relative: calc(1lh - 1ex);
 
 	--radius-sm: calc(var(--radius) - 0.125em);
 	--radius: 0.25em;
@@ -39,8 +36,8 @@
 	--animation__ease-out: cubic-bezier(0, 0, 0.2, 1);
 	--animation__ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-	--color__background: oklch(98.83% 0.003 75);
-	--color__surface: oklch(96.48% 0.003 75);
+	--color__background: oklch(98.63% 0.003 75);
+	--color__surface: oklch(96.18% 0.003 75);
 
 	--color__foreground--muted: oklch(52.34% 0.003 75);
 	--color__foreground: oklch(30.27% 0.003 75);

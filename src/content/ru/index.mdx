@@ -85,6 +85,21 @@ calc(var(--gap) * 3);
 calc(var(--gap) * 4);
 ```
 
+5\. Чтобы предотвратить сдвиг раскладки (CLS), приведите метрики запасного шрифта к метрикам основного:
+
+{/* prettier-ignore */}
+```css
+:root {
+	font-size-adjust: ex-height 0.×××;
+}
+```
+
+<aside>
+
+Возьмите значения из [калькулятора Ричарда Раттера](https://clagnut.com/sandbox/font-size-adjust.html)
+
+</aside>
+
 ## Мотивация
 
 <span class="small-caps">Модуль</span> — базовая единица измерения, которой

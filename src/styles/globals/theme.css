@@ -1,6 +1,7 @@
 html {
 	font-family: var(--typography__font-family--text);
 	font-weight: var(--typography__font-weight);
+	font-size-adjust: var(--typography__adjust--text);
 	line-height: var(--typography__leading);
 	color: var(--color__foreground);
 
@@ -89,6 +90,7 @@ hr {
 
 code {
 	font-family: var(--typography__font-family--mono);
+	font-size-adjust: var(--typography__adjust--mono);
 }
 
 .caps {
