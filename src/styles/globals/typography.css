@@ -1,4 +1,6 @@
-* {
+*,
+::before,
+::after {
 	text-box: trim-both ex alphabetic;
 }
 

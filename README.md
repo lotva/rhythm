@@ -79,6 +79,17 @@ calc(var(--gap) * 3);
 calc(var(--gap) * 4);
 ```
 
+Optionally, prevent layout shifts by matching fallback font metrics to your primary typeface:
+
+<!-- prettier-ignore -->
+```css
+:root {
+	font-size-adjust: ex-height 0.×××;
+}
+```
+
+_Get metrics for your font [from Richard Rutter’s calculator](https://clagnut.com/sandbox/font-size-adjust.html)_
+
 ## Why it works
 
 Most design systems define a _module_—a base unit, typically 8px, used to scale everything from font sizes to component dimensions. While a fixed module makes layout decisions predictable, spacing is the one area where this approach breaks down.
