@@ -1,6 +1,9 @@
 :root {
 	--typography__font-family--text: 'Source Serif 4', serif;
 	--typography__font-family--mono: 'Source Code Pro', monospace;
+
+	--typography__adjust--text: ex-height 0.475;
+	--typography__adjust--mono: ex-height 0.488;
 }
 
 @font-face {
@@ -8,7 +11,7 @@
 	font-weight: 400 700;
 	font-style: normal;
 
-	font-display: block;
+	font-display: swap;
 	src: url('/fonts/source-serif-4.woff2') format('woff2');
 }
 

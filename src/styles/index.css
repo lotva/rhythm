@@ -1,4 +1,5 @@
 @import 'globals/box-sizing.css';
+@import 'globals/spacing.css';
 @import 'globals/typography.css';
 @import 'globals/fonts.css';
 @import 'globals/scroll-behavior.css';
