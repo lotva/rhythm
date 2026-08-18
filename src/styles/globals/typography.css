@@ -1,5 +1,7 @@
-* {
-	text-box: trim-both ex alphabetic;
+@media (min-resolution: 2dppx) {
+	:root {
+		-webkit-font-smoothing: antialiased;
+	}
 }
 
 a {

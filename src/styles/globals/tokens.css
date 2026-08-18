@@ -8,7 +8,7 @@
 	--typography__leading--tight: 1.1;
 	--typography__leading: 1.4;
 
-	--typography__font-weight: 450;
+	--typography__font-weight: 400;
 	--typography__font-weight--bold: 700;
 
 	--typography__space-width: 0.27em;
@@ -17,9 +17,6 @@
 
 	--typography__compensator: -0.07em;
 	--typography__surface-capital-compensator: calc((1cap - 1ex) / 2);
-
-	--gap: calc(1rlh - 1rex);
-	--gap--relative: calc(1lh - 1ex);
 
 	--radius-sm: calc(var(--radius) - 0.125em);
 	--radius: 0.25em;
