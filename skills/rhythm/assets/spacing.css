@@ -1,0 +1,10 @@
+/* Source: https://rhythm.lotva.ru */
+
+* {
+	text-box: trim-both ex alphabetic;
+}
+
+:root {
+	--gap: calc(1rlh - 1rex);
+	--gap--relative: calc(1lh - 1ex);
+}
