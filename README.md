@@ -38,6 +38,30 @@ Advantages:
 
 **Typeface-aware.** When the font changes, spacing adjusts automatically to match its metrics.
 
+[How to use](#how-to-use) · [Why it works](#why-it-works) · [Browser support](#browser-support) · [Use in PostCSS](#use-in-postcss) · [Use in Tailwind](#use-in-tailwind) · [Use in UnoCSS](#use-in-unocss)
+
+## Install as an agent skill
+
+With `npx skills`:
+
+```sh
+npx skills add lotva/rhythm --skill rhythm
+```
+
+With GitHub CLI:
+
+```sh
+gh skill install lotva/rhythm rhythm
+```
+
+Then ask your agent:
+
+```text
+$rhythm install
+$rhythm migrate src/components
+$rhythm match-font-metrics
+```
+
 ## How to use
 
 First, trim the text container to the visual bounds of the font:
@@ -128,7 +152,7 @@ _See also: [Avoiding common layout mistakes using visual line gap](https://burea
 
 ## Browser support
 
-This approach is made possible by modern CSS features: `text-box`, `rlh`, `lh`, and `rex`. Current browser support stands at approximately 81%, making it viable for most modern web applications.
+This approach is made possible by modern CSS features: `text-box`, `rlh`, `lh`, and `rex`. Current browser support stands at approximately 86%, making it viable for most modern web applications.
 
 For projects requiring wider compatibility, you can polyfill the `text-box` behavior using the [X-Size tool](https://lotva.ru/projects/xsize/).
 

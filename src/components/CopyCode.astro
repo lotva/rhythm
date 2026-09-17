@@ -1,0 +1,132 @@
+---
+const locale = (Astro.currentLocale || 'en') as 'en' | 'ru'
+
+const translations = {
+	en: {
+		copy: 'Copy',
+		copied: 'Copied',
+	},
+	ru: {
+		copy: 'Копировать',
+		copied: 'Скопировано',
+	},
+}
+
+const labels = translations[locale]
+---
+
+<div
+	class:list={['copy-code', Astro.props.class]}
+	data-copy-label={labels.copy}
+	data-copied-label={labels.copied}
+	{...Astro.props}
+>
+	<slot />
+
+	<template class="copy-code-template">
+		<button
+			type="button"
+			class="copy-code-button"
+		>
+			<svg
+				class="copy-code-icon _copy"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 16 16"
+				width="16"
+				height="16"
+				aria-hidden="true"
+			>
+				<path
+					d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"
+				>
+				</path>
+				<path
+					d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"
+				>
+				</path>
+			</svg>
+			<svg
+				class="copy-code-icon _check"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 16 16"
+				width="16"
+				height="16"
+				aria-hidden="true"
+			>
+				<path
+					d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+				>
+				</path>
+			</svg>
+		</button>
+	</template>
+</div>
+
+<style is:global>
+	.copy-code {
+		pre {
+			position: relative;
+			margin-block-start: 0;
+			padding-inline-end: gap();
+		}
+
+		pre + pre {
+			margin-block-start: gap(0.5);
+		}
+	}
+
+	.copy-code-button {
+		cursor: pointer;
+
+		position: absolute;
+		inset-block-start: gap(0.375);
+		inset-inline-end: gap(0.375);
+
+		display: grid;
+		place-items: center;
+
+		inline-size: gapRelative(1.5);
+		block-size: gapRelative(1.5);
+		padding: 0;
+		border: none;
+		border-radius: var(--radius-sm);
+
+		color: var(--color__foreground--muted);
+
+		background-color: transparent;
+
+		@supports (corner-shape: squircle) {
+			border-radius: calc(var(--radius-sm) * 1.85);
+
+			corner-shape: squircle;
+		}
+
+		&:hover {
+			color: var(--color__foreground);
+			background-color: var(--color__background);
+		}
+
+		&[data-copied] {
+			color: var(--color__foreground);
+		}
+	}
+
+	.copy-code-icon {
+		grid-area: 1 / 1;
+		inline-size: gapRelative(0.75);
+		block-size: gapRelative(0.75);
+		fill: currentColor;
+
+		&._check {
+			opacity: 0;
+		}
+
+		[data-copied] &._copy {
+			opacity: 0;
+		}
+
+		[data-copied] &._check {
+			opacity: 1;
+		}
+	}
+</style>

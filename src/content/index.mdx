@@ -3,6 +3,7 @@ title: 'Rhythm'
 tagline: 'Typography-driven spacing.'
 ---
 
+import CopyCode from '@/components/CopyCode.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 
 <hr />
@@ -10,6 +11,8 @@ import TableOfContents from '@/components/TableOfContents.astro'
 Rhythm is a spacing system rooted in font metrics. Instead of fixed pixel modules like 8px, it uses the visual gap between lines of text—measured from one line’s x-height to the next baseline. This creates a responsive, typographically consistent spacing scale.
 
 <h2 data-toc-ignore>TLDR</h2>
+
+<CopyCode>
 
 ```css
 * {
@@ -21,7 +24,11 @@ Rhythm is a spacing system rooted in font metrics. Instead of fixed pixel module
 	--gap: calc(1rlh - 1rex);
 	--gap--relative: calc(1lh - 1ex);
 }
+```
 
+</CopyCode>
+
+```css
 p {
 	margin-block-start: calc(var(--gap) * 2);
 }
@@ -32,7 +39,7 @@ small + h1 {
 ```
 
 <aside>
-	Supported in Chrome 133+ and other browsers with ≥ 81% coverage. [Can I
+	Supported in Chrome 133+ and other browsers with ≥ 86% coverage. [Can I
 	Use](https://caniuse.com/mdn-css_properties_text-box)
 </aside>
 
@@ -47,6 +54,36 @@ Advantages:
 **Responsive by design.** Spacing scales with font size and line height, making fluid typography simpler to manage.
 
 **Typeface-aware.** When the font changes, spacing adjusts automatically to match its metrics.
+
+## Install as an agent skill
+
+With `skills.sh`:
+
+<CopyCode>
+
+```sh
+npx skills add lotva/rhythm --skill rhythm
+```
+
+</CopyCode>
+
+With GitHub CLI:
+
+<CopyCode>
+
+```sh
+gh skill install lotva/rhythm rhythm
+```
+
+</CopyCode>
+
+Then ask your agent:
+
+```text
+$rhythm install
+$rhythm migrate src/components
+$rhythm match-font-metrics
+```
 
 ## How to use
 
@@ -152,7 +189,7 @@ Rhythm formalizes this pattern by using the visual line gap as its primary modul
 
 ## Browser support
 
-This approach is made possible by modern CSS features: `text-box`, `rlh`, `lh`, and `rex`. Current browser support stands at approximately 81%, making it viable for most modern web applications.
+This approach is made possible by modern CSS features: `text-box`, `rlh`, `lh`, and `rex`. Current browser support stands at approximately 86%, making it viable for most modern web applications.
 
 For projects requiring wider compatibility, you can polyfill the `text-box` behavior using the [X-Size tool](https://lotva.ru/projects/xsize/).
 
