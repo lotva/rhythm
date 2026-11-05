@@ -5,6 +5,7 @@ tagline: 'Система отступов, основанная на интер�
 
 import CopyCode from '@/components/CopyCode.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
+import TrimComparison from '@/components/TrimComparison.astro'
 
 <hr />
 
@@ -50,6 +51,8 @@ small + h1 {
 Это мешает строить отступы между текстом и блочными элементами — карточками, изображениями, — потому что у блоков кегельной площадки нет. Отступ между карточкой и абзацем выходит меньше, чем между двумя абзацами.
 
 В системе «Ритм» за базовый шаг взят межстрочный просвет — визуальное расстояние между строками абзаца. Этот отступ задаётся не от кегельной площадки, а от визуальной границы строчных букв.
+
+<TrimComparison class="mbs-3g" />
 
 Вот в чём польза «Ритма»:
 
@@ -257,6 +260,8 @@ pre {
 
 ## Работа с UnoCSS
 
+<CopyCode>
+
 ```ts
 // uno.config.ts
 
@@ -339,6 +344,8 @@ export default defineConfig({
 	],
 })
 ```
+
+</CopyCode>
 
 ```ts
 // Или задайте определённый набор значений:

@@ -1,0 +1,504 @@
+---
+interface Props {
+	class?: string
+}
+
+const lang = (Astro.currentLocale || 'en') as 'en' | 'ru'
+
+const copy = {
+	en: {
+		ariaLabel: 'Scroll from an 8px gap to the visual gap between lines of text',
+		before: 'Before: 8px gap',
+		after: 'After: visual gap between lines of text',
+		marginLegend: 'CSS margin',
+		leadingLegend: 'Text box',
+		label: 'Demo',
+		title: 'Trimmed text edge',
+		paragraph:
+			'The demo gradually trims the text box and changes the CSS margin from 8px to the visual gap between lines.',
+		image: 'Image',
+	},
+	ru: {
+		ariaLabel:
+			'Переход от отступа 8 пк к видимому просвету между строками текста',
+		before: 'До: восьмипиксельный модуль',
+		after: 'После: межстрочный просвет',
+		marginLegend: 'Внешние отступы в CSS',
+		leadingLegend: 'Кегельная площадка',
+		label: 'Демо',
+		title: 'Расстояние от визуальных границ букв',
+		paragraph:
+			'Короткий абзац в несколько строк показывает, как отступ плавно переключается с фиксированного модуля на межстрочный просвет.',
+		image: 'Иллюстрация',
+	},
+}
+
+const text = copy[lang]
+---
+
+<div class:list={['root', Astro.props.class]}>
+	<section
+		class="stage"
+		aria-label={text.ariaLabel}
+	>
+		<h3
+			class="states"
+			aria-label={`${text.before}. ${text.after}`}
+		>
+			<span
+				class="states-static"
+				aria-hidden="true"
+			>
+				{text.before} → {text.after}
+			</span>
+			<span
+				class="state _before"
+				aria-hidden="true"
+			>
+				{text.before}
+			</span>
+			<span
+				class="state _after"
+				aria-hidden="true"
+			>
+				{text.after}
+			</span>
+		</h3>
+		<div class="panel">
+			<div>
+				<p class="project metrics-fix">
+					<span
+						class="leading _top"
+						aria-hidden="true"
+					>
+					</span>
+					{text.label}
+					<span
+						class="leading _bottom"
+						aria-hidden="true"
+					>
+					</span>
+				</p>
+
+				<div class="item">
+					<span
+						class="highlight"
+						aria-hidden="true"
+					>
+					</span>
+					<h4 class="title metrics-fix">
+						<span
+							class="leading _top"
+							aria-hidden="true"
+						>
+						</span>
+
+						{text.title}
+
+						<span
+							class="leading _bottom"
+							aria-hidden="true"
+						>
+						</span>
+					</h4>
+				</div>
+
+				<div class="item _paragraph-top">
+					<span
+						class="highlight"
+						aria-hidden="true"
+					>
+					</span>
+					<p class="paragraph metrics-fix">
+						<span
+							class="leading _top"
+							aria-hidden="true"
+						>
+						</span>
+						{text.paragraph}
+						<span
+							class="leading _bottom"
+							aria-hidden="true"
+						>
+						</span>
+					</p>
+				</div>
+
+				<div class="item _paragraph-bottom">
+					<span
+						class="highlight"
+						aria-hidden="true"
+					>
+					</span>
+					<div class="image">{text.image}</div>
+				</div>
+			</div>
+			<ul class="legend">
+				<li>
+					<span
+						class="swatch _margin"
+						aria-hidden="true"
+					>
+					</span>
+					<span>{text.marginLegend}</span>
+				</li>
+				<li>
+					<span
+						class="swatch _leading"
+						aria-hidden="true"
+					>
+					</span>
+					<span>{text.leadingLegend}</span>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>
+
+<style>
+	.root {
+		--accent: oklch(61% 0.12 24);
+		--accent--soft: color-mix(in srgb, var(--accent) 16%, transparent);
+	}
+
+	.stage {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.states {
+		grid-area: 1 / 1;
+
+		margin: 0 0 gap(1);
+
+		font: inherit;
+		font-weight: var(--typography__font-weight--bold);
+		color: var(--color__foreground--title);
+	}
+
+	.state {
+		display: none;
+	}
+
+	.legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: gap(0.75) gap(1);
+		align-items: center;
+
+		padding-inline-start: 0;
+
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+	}
+
+	.legend > li {
+		display: flex;
+		gap: gap(0.35);
+		align-items: center;
+		margin-block-start: 0;
+	}
+
+	.swatch {
+		flex: none;
+		inline-size: 0.65em;
+		block-size: 0.65em;
+		border-radius: 50%;
+	}
+
+	.swatch._margin {
+		background: var(--accent);
+	}
+
+	.swatch._leading {
+		border: 1px solid var(--color__rule);
+		background: var(--color__background);
+	}
+
+	.panel {
+		display: grid;
+		grid-area: 2 / 1;
+		gap: gap(1);
+		align-content: space-between;
+
+		min-inline-size: 0;
+		padding: gap(1.5) gap(1) gap(1);
+		border: 1px solid var(--color__rule);
+		border-radius: var(--radius-lg);
+
+		background: var(--color__background);
+	}
+
+	.project {
+		margin: 0;
+		font-size: var(--font-size__caption);
+		line-height: 1.4;
+	}
+
+	.item {
+		--margin-from: 8px;
+		--margin-to: var(--gap);
+
+		isolation: isolate;
+		position: relative;
+		margin-block-start: var(--margin-to);
+	}
+
+	.item._paragraph-top,
+	.item._paragraph-bottom {
+		--margin-from: 16px;
+		--margin-to: calc(var(--gap) * 1.5);
+	}
+
+	.highlight {
+		pointer-events: none;
+
+		position: absolute;
+		z-index: -1;
+		inset-block-start: calc(-1 * var(--margin-to));
+		inset-inline: 0;
+
+		block-size: var(--margin-to);
+		border-radius: 0.125rem;
+
+		background: var(--accent--soft);
+	}
+
+	.title {
+		margin: 0;
+		font-size: var(--font-size__tagline);
+		letter-spacing: var(--typography__tracking--tighter);
+	}
+
+	.paragraph {
+		margin: 0;
+	}
+
+	.image {
+		overflow: hidden;
+		display: grid;
+		place-items: center;
+
+		block-size: 4.5rem;
+		border-radius: var(--radius);
+
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+
+		background-color: var(--color__surface);
+	}
+
+	.metrics-fix::before,
+	.metrics-fix::after {
+		content: '';
+		display: table;
+	}
+
+	.metrics-fix {
+		--leading-top-height: calc(0.3755em + (1lh - 1em) / 2);
+		--leading-bottom-height: calc(0.1495em + (1lh - 1em) / 2);
+
+		isolation: isolate;
+		position: relative;
+	}
+
+	.leading {
+		pointer-events: none;
+
+		position: absolute;
+		z-index: -1;
+		inset-inline: 0;
+
+		block-size: 0;
+
+		background: var(--color__background);
+	}
+
+	.leading._top {
+		--leading-height: var(--leading-top-height);
+
+		inset-block-start: 0;
+	}
+
+	.leading._bottom {
+		--leading-height: var(--leading-bottom-height);
+
+		inset-block-end: 0;
+	}
+
+	.metrics-fix::before {
+		margin-block-end: calc(-1 * var(--leading-top-height));
+	}
+
+	.metrics-fix::after {
+		margin-block-start: calc(-1 * var(--leading-bottom-height));
+	}
+
+	@media (prefers-reduced-motion: no-preference) and (width >= 25rem) and (height >= 46rem) {
+		@supports (
+			(animation-timeline: view()) and (animation-range: cover 36% cover 67%)
+				and (margin-block-end: calc(-1em - (1lh - 1em) / 2))
+		) {
+			.root {
+				--animation-range: cover 36% cover 67%;
+
+				block-size: 130svb;
+				view-timeline: --scroll block;
+			}
+
+			.stage {
+				position: sticky;
+				inset-block-start: max(9rem, gap(4));
+
+				@media (width >= 77.5rem) {
+					inset-block-start: gap(4);
+				}
+			}
+
+			.panel {
+				min-block-size: 17rem;
+			}
+
+			.states {
+				display: grid;
+			}
+
+			.states-static {
+				display: none;
+			}
+
+			.state {
+				display: block;
+				grid-area: 1 / 1;
+			}
+
+			.state._before,
+			.state._after,
+			.item,
+			.highlight,
+			.metrics-fix:not(.project)::before,
+			.metrics-fix::after,
+			.metrics-fix:not(.project) .leading._top,
+			.metrics-fix .leading._bottom {
+				animation-timing-function: linear;
+				animation-fill-mode: both;
+				animation-timeline: --scroll;
+				animation-range: var(--animation-range);
+			}
+
+			.state._before {
+				animation-name: state-before;
+			}
+
+			.state._after {
+				animation-name: state-after;
+			}
+
+			.item {
+				animation-name: margin-change;
+			}
+
+			.highlight {
+				inset-block-start: calc(-1 * var(--margin-from));
+				block-size: var(--margin-from);
+				animation-name: highlight-resize;
+			}
+
+			.metrics-fix:not(.project)::before {
+				margin-block-end: 0;
+				animation-name: trim-top;
+			}
+
+			.metrics-fix::after {
+				margin-block-start: 0;
+				animation-name: trim-bottom;
+			}
+
+			.metrics-fix:not(.project) .leading._top,
+			.metrics-fix .leading._bottom {
+				animation-name: slack-collapse;
+			}
+		}
+	}
+
+	@keyframes margin-change {
+		from {
+			margin-block-start: var(--margin-from);
+		}
+
+		to {
+			margin-block-start: var(--margin-to);
+		}
+	}
+
+	@keyframes highlight-resize {
+		from {
+			inset-block-start: calc(-1 * var(--margin-from));
+			block-size: var(--margin-from);
+		}
+
+		to {
+			inset-block-start: calc(-1 * var(--margin-to));
+			block-size: var(--margin-to);
+		}
+	}
+
+	@keyframes trim-top {
+		from {
+			margin-block-end: 0;
+		}
+
+		to {
+			margin-block-end: calc(-1 * var(--leading-top-height));
+		}
+	}
+
+	@keyframes trim-bottom {
+		from {
+			margin-block-start: 0;
+		}
+
+		to {
+			margin-block-start: calc(-1 * var(--leading-bottom-height));
+		}
+	}
+
+	@keyframes slack-collapse {
+		from {
+			block-size: var(--leading-height);
+			opacity: 1;
+		}
+
+		to {
+			block-size: 0;
+			opacity: 0;
+		}
+	}
+
+	@keyframes state-before {
+		0%,
+		78% {
+			transform: translateY(0);
+			opacity: 1;
+		}
+
+		86%,
+		100% {
+			transform: translateY(-0.18em);
+			opacity: 0;
+		}
+	}
+
+	@keyframes state-after {
+		0%,
+		86% {
+			transform: translateY(0.18em);
+			opacity: 0;
+		}
+
+		100% {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+</style>

@@ -5,6 +5,7 @@ tagline: 'Typography-driven spacing.'
 
 import CopyCode from '@/components/CopyCode.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
+import TrimComparison from '@/components/TrimComparison.astro'
 
 <hr />
 
@@ -50,6 +51,8 @@ small + h1 {
 By default, CSS measures spacing from the text box, which includes extra space the font reserves above and below the letters. A margin of 8px between two paragraphs adds up to more than 8px on screen. Cards and images have no such reserved space, so the gap between a card and a paragraph comes out smaller than the gap between two paragraphs.
 
 Rhythm’s unit is the gap between lines of text, measured from the visible edges of the letters instead of the text box.
+
+<TrimComparison class="mbs-3g" />
 
 Advantages:
 
