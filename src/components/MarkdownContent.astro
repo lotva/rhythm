@@ -5,6 +5,8 @@
 	<slot />
 </div>
 
+<script src="../scripts/copy-code.ts"></script>
+
 <style>
 	.content {
 		hyphens: auto;
@@ -17,29 +19,9 @@
 			margin-block-start: gap(3);
 			font: inherit;
 			font-weight: var(--typography__font-weight--bold);
-
-			pre + & {
-				margin-block-start: gap(2);
-			}
 		}
 
-		p {
-			margin-block-start: gap(2);
-
-			h2 + & {
-				margin-block-start: gap(1);
-			}
-		}
-
-		ul {
-			padding-inline-start: gap();
-
-			li {
-				margin-block-start: gap(1.5);
-			}
-		}
-
-		pre {
+		:is(& > pre, & > .copy-code) {
 			margin-block-start: gap(2);
 
 			h2 + & {
@@ -60,7 +42,7 @@
 			font-size: var(--font-size__caption);
 			color: var(--color__foreground--muted);
 
-			pre + & {
+			:is(pre, .copy-code) + & {
 				margin-block-start: gap();
 			}
 
@@ -70,6 +52,24 @@
 
 			p:not(:first-child) {
 				margin-block-start: gap();
+			}
+		}
+	}
+
+	:where(.content) {
+		p {
+			margin-block-start: gap(2);
+
+			h2 + & {
+				margin-block-start: gap(1);
+			}
+		}
+
+		ul {
+			padding-inline-start: gap();
+
+			li {
+				margin-block-start: gap(1.5);
 			}
 		}
 	}

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Rhythm'
+  short_description: 'Typography-driven spacing for web projects'
+  default_prompt: 'Use $rhythm install to add Rhythm spacing to this project.'
