@@ -31,39 +31,27 @@ const paths = toPaths(i18n?.locales!)
 
 <style>
 	.switcher {
+		@mixin rounded;
+
 		display: flex;
 
 		inline-size: fit-content;
 		padding: var(--typography__outline-thickness);
-		border-radius: var(--radius);
 
 		font-size: var(--font-size__caption);
 
 		background-color: var(--color__surface);
-
-		@supports (corner-shape: squircle) {
-			border-radius: calc(var(--radius) * 1.85);
-
-			corner-shape: squircle;
-		}
 	}
 
 	.link {
+		@mixin rounded calc(var(--radius) - var(--typography__outline-thickness));
+
 		padding: calc(
 				gapRelative(0.6) + var(--typography__surface-capital-compensator)
 			)
 			gap(0.25) gapRelative(0.6);
-		border-radius: calc(var(--radius) - var(--typography__outline-thickness));
 		color: var(--color__foreground--muted);
 		text-decoration: none;
-
-		@supports (corner-shape: squircle) {
-			border-radius: calc(
-				(var(--radius) - var(--typography__outline-thickness)) * 1.85
-			);
-
-			corner-shape: squircle;
-		}
 
 		.caps {
 			letter-spacing: 0.04em;

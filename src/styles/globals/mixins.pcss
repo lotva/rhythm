@@ -1,0 +1,9 @@
+@define-mixin rounded $radius: var(--radius) {
+	border-radius: $radius;
+
+	@supports (corner-shape: squircle) {
+		border-radius: calc($radius * 1.85);
+
+		corner-shape: squircle;
+	}
+}

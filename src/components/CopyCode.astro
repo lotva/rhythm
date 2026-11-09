@@ -77,6 +77,8 @@ const labels = translations[locale]
 	}
 
 	.copy-code-button {
+		@mixin rounded var(--radius-sm);
+
 		cursor: pointer;
 
 		position: absolute;
@@ -91,17 +93,10 @@ const labels = translations[locale]
 		block-size: gapRelative(1.5);
 		padding: 0;
 		border: none;
-		border-radius: var(--radius-sm);
 
 		color: var(--color__foreground--muted);
 
 		background-color: var(--color__background);
-
-		@supports (corner-shape: squircle) {
-			border-radius: calc(var(--radius-sm) * 1.85);
-
-			corner-shape: squircle;
-		}
 
 		&:hover {
 			color: var(--color__foreground);

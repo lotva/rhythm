@@ -5,7 +5,7 @@
 	--typography__tracking--wide: 0.02em;
 	--typography__tracking--widest: 0.1em;
 
-	--typography__leading--tight: 1.25;
+	--typography__leading--tight: 1.1;
 	--typography__leading: 1.4;
 
 	--typography__font-weight: 400;
@@ -39,6 +39,13 @@
 	--color__background: oklch(98.63% 0.003 75);
 	--color__surface: oklch(96.18% 0.003 75);
 
+	--color__highlight: oklch(61% 0.12 24);
+	--color__highlight--soft: color-mix(
+		in srgb,
+		var(--color__highlight) 16%,
+		transparent
+	);
+
 	--color__foreground--muted: oklch(52.34% 0.003 75);
 	--color__foreground: oklch(30.27% 0.003 75);
 	--color__foreground--strong: var(--color__foreground);
@@ -64,6 +71,8 @@
 
 		--color__background: oklch(0.1934 0.003 75);
 		--color__surface: oklch(0.3027 0.003 75);
+
+		--color__highlight: oklch(81% 0.12 24);
 
 		--color__foreground--muted: oklch(72.66% 0.003 75);
 		--color__foreground: oklch(91.8% 0.003 75);
