@@ -1,0 +1,243 @@
+---
+const lang = (Astro.currentLocale || 'en') as 'en' | 'ru'
+
+const copy = {
+	en: {
+		ariaLabel: 'Rhythm spacing specimens',
+		thesis: 'Spacing is measured from the x-height and baseline.',
+		label: 'Label',
+		title: 'Type sets the pace',
+		paragraph: 'Paragraph spacing is twice the line gap.',
+		image: 'Image',
+	},
+	ru: {
+		ariaLabel: 'Образцы отступов в системе «Ритм»',
+		thesis: 'Отступы считаются от границ строчных букв.',
+		label: 'Бирка',
+		title: 'Шрифт задаёт ритм',
+		paragraph: 'Отступ абзаца — два межстрочных просвета.',
+		image: 'Иллюстрация',
+	},
+}
+
+const text = copy[lang]
+---
+
+<section
+	class="specimens"
+	aria-label={text.ariaLabel}
+>
+	<figure class="tile _wide">
+		<div class="panel">
+			<div class="thesis">
+				<span
+					class="highlight _gap"
+					aria-hidden="true"
+				>
+				</span>
+
+				<p class="claim">{text.thesis}</p>
+
+				<span
+					class="highlight _gap"
+					aria-hidden="true"
+				>
+				</span>
+			</div>
+		</div>
+	</figure>
+
+	<figure class="tile">
+		<div class="panel">
+			<div class="stack _type">
+				<p class="label">{text.label}</p>
+
+				<span
+					class="highlight _relative"
+					aria-hidden="true"
+				>
+				</span>
+
+				<div class="headline">{text.title}</div>
+			</div>
+			<code class="gloss">--gap--relative</code>
+		</div>
+	</figure>
+
+	<figure class="tile">
+		<div class="panel">
+			<div class="stack _media">
+				<div class="image">{text.image}</div>
+
+				<span
+					class="highlight _root"
+					aria-hidden="true"
+				>
+				</span>
+
+				<p class="paragraph">{text.paragraph}</p>
+			</div>
+			<code class="gloss">calc(var(--gap) * 2)</code>
+		</div>
+	</figure>
+</section>
+
+<style>
+	.specimens {
+		scroll-behavior: smooth;
+		scrollbar-width: none;
+		scroll-snap-type: x mandatory;
+
+		overflow-inline: auto;
+		display: flex;
+		gap: gap();
+		align-items: stretch;
+
+		margin: gap(-1);
+		padding: gap();
+
+		@media (width >= 768px) {
+			scroll-snap-type: none;
+
+			overflow: visible;
+			display: grid;
+			grid-auto-rows: auto;
+			grid-column: 2;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.tile {
+		scroll-snap-align: center;
+
+		display: flex;
+		flex: 0 0 min(16em, 100%);
+		flex-direction: column;
+
+		margin: 0;
+
+		@media (width < 768px) {
+			aspect-ratio: 1/1;
+		}
+
+		@media (width >= 768px) {
+			scroll-snap-align: none;
+			flex: initial;
+		}
+
+		&._wide {
+			grid-column: 1 / -1;
+		}
+	}
+
+	.panel {
+		@mixin rounded var(--radius-lg);
+
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+
+		padding: gap(1.5) gap(2);
+
+		background: var(--color__surface);
+
+		@media (width >= 768px) {
+			min-block-size: gap(18);
+		}
+
+		.tile._wide & {
+			min-block-size: gap(10);
+		}
+	}
+
+	.stack {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		margin-block-end: gap(3);
+	}
+
+	.label {
+		margin: 0;
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+	}
+
+	.headline {
+		max-inline-size: 90%;
+		margin-inline-start: var(--typography__compensator);
+
+		font-size: var(--font-size__tagline);
+		font-weight: var(--typography__font-weight--bold);
+		line-height: var(--typography__leading--tight);
+		text-wrap: balance;
+	}
+
+	.gloss {
+		align-self: center;
+		font-size: var(--font-size__caption);
+		color: var(--color__highlight);
+	}
+
+	.paragraph {
+		margin: 0;
+	}
+
+	.thesis {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: center;
+
+		font-size: var(--font-size__tagline);
+	}
+
+	.claim {
+		align-self: center;
+
+		max-inline-size: 32em;
+		margin: 0;
+
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	.highlight {
+		display: block;
+		flex: none;
+		margin-inline: calc(var(--gap) * -2);
+		background: var(--color__highlight--soft);
+
+		&._gap {
+			block-size: gapRelative();
+		}
+
+		&._relative {
+			block-size: var(--gap--relative);
+			font-size: var(--font-size__tagline);
+		}
+
+		&._root {
+			block-size: calc(var(--gap) * 2);
+		}
+	}
+
+	.image {
+		@mixin rounded;
+
+		display: grid;
+		place-items: center;
+
+		min-block-size: gap(6);
+		border: 1px solid var(--color__selection);
+		border-block-end: 0;
+		border-end-start-radius: 0;
+		border-end-end-radius: 0;
+
+		font-size: var(--font-size__caption);
+		color: var(--color__foreground--muted);
+	}
+</style>
